@@ -1,0 +1,6 @@
+{
+  "name": "V C P MOTORS",
+  "description": "V C P MOTORS - Premium Pre-Owned Car Dealer in Vashi, Navi Mumbai. Buying & Selling of Used Cars on Commission Basis.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
