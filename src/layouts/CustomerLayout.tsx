@@ -210,24 +210,24 @@ export default function CustomerLayout() {
             
             {/* Left Side: V C P MOTORS Brand Header */}
             <Link to="/" className="flex items-center shrink min-w-0 select-none group mr-2">
-              <div className="flex items-center space-x-2 sm:space-x-2.5 min-w-0">
+              <div className="flex items-center space-x-2.5 sm:space-x-3 min-w-0">
                 {siteConfig.logo && !logoError ? (
                   <img 
                     src={siteConfig.logo} 
                     alt="V C P MOTORS" 
                     onError={() => setLogoError(true)}
-                    className="h-7 sm:h-9 w-auto object-contain max-w-[55px] xs:max-w-[75px] sm:max-w-[120px] rounded-md shrink-0" 
+                    className="h-10 xs:h-12 sm:h-14 w-auto object-contain max-w-[80px] xs:max-w-[110px] sm:max-w-[160px] rounded-md shrink-0" 
                   />
                 ) : (
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-[#0057D9] flex items-center justify-center text-white font-black text-xs sm:text-base shadow-md group-hover:bg-[#2563EB] transition-colors shrink-0">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#0057D9] flex items-center justify-center text-white font-black text-sm sm:text-lg shadow-md group-hover:bg-[#2563EB] transition-colors shrink-0">
                     VCP
                   </div>
                 )}
                 <div className="flex flex-col min-w-0">
-                  <span className="font-extrabold text-xs xs:text-sm sm:text-lg tracking-wider leading-none uppercase font-sans text-white truncate">
+                  <span className="font-extrabold text-[10px] xs:text-[11px] sm:text-xs md:text-sm tracking-wider leading-none uppercase font-sans text-white truncate">
                     V C P MOTORS
                   </span>
-                  <span className="text-[7px] sm:text-[9px] uppercase tracking-[0.2em] font-bold mt-0.5 text-blue-400 truncate">
+                  <span className="text-[6.5px] xs:text-[7.5px] sm:text-[8.5px] uppercase tracking-[0.2em] font-bold mt-0.5 text-blue-400 truncate">
                     PREMIUM PRE-OWNED
                   </span>
                 </div>
