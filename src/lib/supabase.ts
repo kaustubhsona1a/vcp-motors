@@ -137,60 +137,72 @@ export async function compressImage(
     return file;
   }
 
-  const maxDim = options?.maxDimension || 1600;
-  const initialQuality = options?.targetQuality || 0.82;
+  // For car inventory photos, 1280px is optimal HD for retina mobile & desktop galleries
+  const maxDim = options?.maxDimension || 1280;
+  const initialQuality = options?.targetQuality || 0.75;
 
   try {
-    const img = new Image();
-    const objectUrl = URL.createObjectURL(file);
+    let img: HTMLImageElement | null = new Image();
+    let objectUrl = URL.createObjectURL(file);
     img.src = objectUrl;
 
-    await new Promise<void>((resolve, reject) => {
-      img.onload = () => resolve();
-      img.onerror = (err) => reject(err);
-      if (img.complete) resolve();
+    const loaded = await new Promise<boolean>((resolve) => {
+      if (!img) return resolve(false);
+      img.onload = () => resolve(true);
+      img.onerror = () => resolve(false);
+      if (img.complete && img.naturalWidth) resolve(true);
     });
 
-    let width = img.naturalWidth || img.width;
-    let height = img.naturalHeight || img.height;
-
-    if (!width || !height) {
+    // If direct HTMLImageElement load failed (e.g. raw unconverted HEIC on desktop), try fallback
+    if (!loaded || !img.naturalWidth || !img.naturalHeight) {
       URL.revokeObjectURL(objectUrl);
-      return file;
-    }
-
-    // Downscale if larger than maxDim while preserving ratio
-    if (width > maxDim || height > maxDim) {
-      if (width > height) {
-        height = Math.round((height * maxDim) / width);
-        width = maxDim;
-      } else {
-        width = Math.round((width * maxDim) / height);
-        height = maxDim;
+      try {
+        const options = {
+          maxSizeMB: 0.2, // 200 KB target
+          maxWidthOrHeight: maxDim,
+          useWebWorker: true,
+          initialQuality: 0.75
+        };
+        const compressedBlob = await imageCompression(file, options);
+        return new File([compressedBlob], file.name.replace(/\.[^/.]+$/, '') + '.jpg', {
+          type: 'image/jpeg',
+          lastModified: Date.now()
+        });
+      } catch {
+        return file;
       }
     }
 
-    const canvas = document.createElement('canvas');
-    canvas.width = width;
-    canvas.height = height;
-    const ctx = canvas.getContext('2d');
+    const renderToCanvas = (targetMaxDim: number) => {
+      let width = img!.naturalWidth || img!.width;
+      let height = img!.naturalHeight || img!.height;
 
-    if (!ctx) {
-      URL.revokeObjectURL(objectUrl);
-      return file;
-    }
+      if (width > targetMaxDim || height > targetMaxDim) {
+        if (width > height) {
+          height = Math.round((height * targetMaxDim) / width);
+          width = targetMaxDim;
+        } else {
+          width = Math.round((width * targetMaxDim) / height);
+          height = targetMaxDim;
+        }
+      }
 
-    // Crisp high-quality smoothing algorithm
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = 'high';
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return null;
 
-    // Fill white background for transparent formats converted to JPEG/WebP
-    ctx.fillStyle = '#FFFFFF';
-    ctx.fillRect(0, 0, width, height);
-    ctx.drawImage(img, 0, 0, width, height);
-    URL.revokeObjectURL(objectUrl);
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(0, 0, width, height);
+      ctx.drawImage(img!, 0, 0, width, height);
 
-    const getBlob = (mimeType: string, q: number): Promise<Blob | null> => {
+      return canvas;
+    };
+
+    const getBlob = (canvas: HTMLCanvasElement, mimeType: string, q: number): Promise<Blob | null> => {
       return new Promise((resolve) => {
         try {
           canvas.toBlob((b) => resolve(b), mimeType, q);
@@ -200,35 +212,53 @@ export async function compressImage(
       });
     };
 
-    // Obtain JPEG blob (highly optimized and crisp on iOS Safari)
-    let jpegBlob = await getBlob('image/jpeg', initialQuality);
-    // Obtain WebP blob (highly optimized on Android / Chrome)
-    let webpBlob = await getBlob('image/webp', initialQuality);
-
-    // Dynamic size check: if JPEG is > 400KB, do a quick pass at 0.76 quality to keep size ~150-250KB
-    if (jpegBlob && jpegBlob.size > 400 * 1024) {
-      const tightJpeg = await getBlob('image/jpeg', 0.76);
-      if (tightJpeg) jpegBlob = tightJpeg;
+    let canvas = renderToCanvas(maxDim);
+    if (!canvas) {
+      URL.revokeObjectURL(objectUrl);
+      return file;
     }
 
-    if (webpBlob && webpBlob.size > 400 * 1024) {
-      const tightWebp = await getBlob('image/webp', 0.76);
-      if (tightWebp) webpBlob = tightWebp;
+    // Step 1: Quality pass at 0.75
+    let jpegBlob = await getBlob(canvas, 'image/jpeg', initialQuality);
+    let webpBlob = await getBlob(canvas, 'image/webp', initialQuality);
+
+    // Step 2: If file is larger than 220KB, adaptively reduce quality to 0.68
+    if (jpegBlob && jpegBlob.size > 220 * 1024) {
+      const tighterJpeg = await getBlob(canvas, 'image/jpeg', 0.68);
+      if (tighterJpeg) jpegBlob = tighterJpeg;
     }
+
+    if (webpBlob && webpBlob.size > 220 * 1024) {
+      const tighterWebp = await getBlob(canvas, 'image/webp', 0.68);
+      if (tighterWebp) webpBlob = tighterWebp;
+    }
+
+    // Step 3: If STILL larger than 240KB (e.g. extremely complex car detail/reflections), downscale to 1080px
+    if (jpegBlob && jpegBlob.size > 240 * 1024) {
+      const canvas1080 = renderToCanvas(1080);
+      if (canvas1080) {
+        const scaledJpeg = await getBlob(canvas1080, 'image/jpeg', 0.70);
+        if (scaledJpeg) jpegBlob = scaledJpeg;
+        const scaledWebp = await getBlob(canvas1080, 'image/webp', 0.70);
+        if (scaledWebp) webpBlob = scaledWebp;
+      }
+    }
+
+    URL.revokeObjectURL(objectUrl);
+    img = null;
 
     let finalBlob: Blob | null = jpegBlob;
     let finalExt = 'jpg';
     let finalType = 'image/jpeg';
 
-    // iOS Safari WebP canvas encoder often produces bloated files (>700KB) or ignores quality.
-    // Use WebP if it's smaller, valid, and under 380KB. Otherwise default to JPEG which is crisp & tiny on iOS (~150-200KB).
+    // Pick WebP if it's smaller, valid, and under 220KB; otherwise default to crisp JPEG
     if (
       webpBlob &&
       webpBlob.type === 'image/webp' &&
       webpBlob.size > 0 &&
       jpegBlob &&
       webpBlob.size <= jpegBlob.size &&
-      webpBlob.size < 380 * 1024
+      webpBlob.size < 220 * 1024
     ) {
       finalBlob = webpBlob;
       finalExt = 'webp';
@@ -255,7 +285,7 @@ export async function uploadImageToStorage(file: File, path: string, bucket: str
     const isShowcase = bucket === 'site_settings' || path.includes('site_settings') || path.includes('logo') || path.includes('hero') || path.includes('about') || path.includes('delivery');
     
     if (!isShowcase) {
-      finalFile = await compressImage(file, { maxDimension: 1600, targetQuality: 0.82 });
+      finalFile = await compressImage(file, { maxDimension: 1280, targetQuality: 0.75 });
     } else {
       console.log('Skipping image compression for showcase asset:', file.name, 'Path:', path, 'Bucket:', bucket);
     }

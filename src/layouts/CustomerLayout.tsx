@@ -1,5 +1,5 @@
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { MapPin, Phone, Mail, Clock, MessageCircle, Instagram, Twitter, Menu, X, Star, Upload, Image, Check, ChevronRight } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, MessageCircle, Instagram, Youtube, Twitter, Menu, X, Star, Upload, Image, Check, ChevronRight } from 'lucide-react';
 import React, { useState } from 'react';
 import { useVehicles, sanitizeHeroImage } from '../context/VehicleContext';
 import { useAuth } from '../context/AuthContext';
@@ -206,28 +206,28 @@ export default function CustomerLayout() {
       <div className="relative z-10 flex flex-col flex-grow min-h-screen">
         {/* Main Navbar - Dark Translucent Header with glass blur */}
         <nav className="sticky top-0 z-50 transition-all duration-300 bg-slate-900/85 backdrop-blur-md border-b border-slate-800/80 shadow-lg text-white">
-          <div className="container mx-auto max-w-7xl px-3 sm:px-6 py-2.5 sm:py-3.5 flex justify-between items-center w-full">
+          <div className="container mx-auto max-w-7xl px-3 sm:px-6 py-3 sm:py-4 flex justify-between items-center w-full">
             
             {/* Left Side: V C P MOTORS Brand Header */}
-            <Link to="/" className="flex items-center shrink min-w-0 select-none group mr-2">
-              <div className="flex items-center space-x-2.5 sm:space-x-3 min-w-0">
+            <Link to="/" className="flex items-center shrink min-w-0 select-none group mr-2 sm:mr-4">
+              <div className="flex items-center space-x-2.5 sm:space-x-3.5 min-w-0">
                 {siteConfig.logo && !logoError ? (
                   <img 
                     src={siteConfig.logo} 
                     alt="V C P MOTORS" 
                     onError={() => setLogoError(true)}
-                    className="h-10 xs:h-12 sm:h-14 w-auto object-contain max-w-[80px] xs:max-w-[110px] sm:max-w-[160px] rounded-md shrink-0" 
+                    className="h-12 xs:h-14 sm:h-16 md:h-20 w-auto object-contain max-w-[120px] xs:max-w-[160px] sm:max-w-[240px] md:max-w-[300px] rounded-md shrink-0" 
                   />
                 ) : (
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#0057D9] flex items-center justify-center text-white font-black text-sm sm:text-lg shadow-md group-hover:bg-[#2563EB] transition-colors shrink-0">
+                  <div className="w-11 h-11 sm:w-14 sm:h-14 rounded-xl bg-[#0057D9] flex items-center justify-center text-white font-black text-base sm:text-xl shadow-md group-hover:bg-[#2563EB] transition-colors shrink-0">
                     VCP
                   </div>
                 )}
                 <div className="flex flex-col min-w-0">
-                  <span className="font-extrabold text-[10px] xs:text-[11px] sm:text-xs md:text-sm tracking-wider leading-none uppercase font-sans text-white truncate">
+                  <span className="font-extrabold text-xs xs:text-sm sm:text-base md:text-lg tracking-wider leading-none uppercase font-sans text-white truncate">
                     V C P MOTORS
                   </span>
-                  <span className="text-[6.5px] xs:text-[7.5px] sm:text-[8.5px] uppercase tracking-[0.2em] font-bold mt-0.5 text-blue-400 truncate">
+                  <span className="text-[7.5px] xs:text-[8.5px] sm:text-[10px] md:text-[11px] uppercase tracking-[0.2em] font-bold mt-1 text-blue-400 truncate">
                     PREMIUM PRE-OWNED
                   </span>
                 </div>
@@ -382,6 +382,10 @@ export default function CustomerLayout() {
               <li className="flex items-center">
                 <Instagram className="w-4 h-4 text-pink-600 mr-3 shrink-0" />
                 <a href="https://www.instagram.com/vcp_motors_2015?utm_source=qr" target="_blank" rel="noreferrer" className="text-[#111827] hover:text-[#0057D9] transition-colors duration-200 font-mono text-xs font-bold">@vcp_motors_2015</a>
+              </li>
+              <li className="flex items-center">
+                <Youtube className="w-4 h-4 text-red-600 mr-3 shrink-0" />
+                <a href="https://youtube.com/@sahilkhan-fw2zh?si=hmOwclBPVCK41tip" target="_blank" rel="noreferrer" className="text-[#111827] hover:text-[#0057D9] transition-colors duration-200 font-mono text-xs font-bold">YouTube Channel</a>
               </li>
             </ul>
           </div>
