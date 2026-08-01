@@ -17,6 +17,7 @@ export default function CustomerLayout() {
   const isHomePage = location.pathname === '/';
   const [isScrolled, setIsScrolled] = useState(false);
   const [scrollY, setScrollY] = useState(0);
+  const [logoError, setLogoError] = useState(false);
 
   const desktopVideoRef = React.useRef<HTMLVideoElement>(null);
   const mobileVideoRef = React.useRef<HTMLVideoElement>(null);
@@ -202,19 +203,28 @@ export default function CustomerLayout() {
       <div className="relative z-10 flex flex-col flex-grow min-h-screen">
         {/* Main Navbar - Dark Translucent Header with glass blur */}
         <nav className="sticky top-0 z-50 transition-all duration-300 bg-slate-900/85 backdrop-blur-md border-b border-slate-800/80 shadow-lg text-white">
-          <div className="container mx-auto max-w-7xl px-4 py-3.5 flex justify-between items-center">
+          <div className="container mx-auto max-w-7xl px-3 sm:px-6 py-2.5 sm:py-3.5 flex justify-between items-center w-full">
             
             {/* Left Side: V C P MOTORS Brand Header */}
-            <Link to="/" className="flex items-center shrink-0 select-none group">
-              <div className="flex items-center space-x-2.5">
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#0057D9] flex items-center justify-center text-white font-black text-sm sm:text-base shadow-md group-hover:bg-[#2563EB] transition-colors">
-                  VCP
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-extrabold text-base sm:text-lg tracking-wider leading-none uppercase font-sans text-white">
+            <Link to="/" className="flex items-center shrink min-w-0 select-none group mr-2">
+              <div className="flex items-center space-x-2 sm:space-x-2.5 min-w-0">
+                {siteConfig.logo && !logoError ? (
+                  <img 
+                    src={siteConfig.logo} 
+                    alt="V C P MOTORS" 
+                    onError={() => setLogoError(true)}
+                    className="h-7 sm:h-9 w-auto object-contain max-w-[55px] xs:max-w-[75px] sm:max-w-[120px] rounded-md shrink-0" 
+                  />
+                ) : (
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-[#0057D9] flex items-center justify-center text-white font-black text-xs sm:text-base shadow-md group-hover:bg-[#2563EB] transition-colors shrink-0">
+                    VCP
+                  </div>
+                )}
+                <div className="flex flex-col min-w-0">
+                  <span className="font-extrabold text-xs xs:text-sm sm:text-lg tracking-wider leading-none uppercase font-sans text-white truncate">
                     V C P MOTORS
                   </span>
-                  <span className="text-[8px] sm:text-[9px] uppercase tracking-[0.3em] font-bold mt-1 text-blue-400">
+                  <span className="text-[7px] sm:text-[9px] uppercase tracking-[0.2em] font-bold mt-0.5 text-blue-400 truncate">
                     PREMIUM PRE-OWNED
                   </span>
                 </div>
@@ -222,7 +232,7 @@ export default function CustomerLayout() {
             </Link>
 
             {/* Right/Middle Side: Desktop Navigation & Contact Actions */}
-            <div className="flex items-center space-x-4 sm:space-x-6">
+            <div className="flex items-center space-x-2 sm:space-x-6 shrink-0">
               
               {/* Desktop Contact & Socials */}
               <div className="hidden md:flex items-center space-x-4">
@@ -230,62 +240,71 @@ export default function CustomerLayout() {
                   <Phone className="w-4 h-4 mr-2 text-blue-400" />
                   <span>+91 98208 85886</span>
                 </a>
-              <div className="flex items-center space-x-3.5 border-l pl-4 border-slate-800">
-                <a href="https://wa.me/919820885886" target="_blank" rel="noreferrer" className="hover:scale-110 active:scale-95 transition-all duration-300" title="WhatsApp Assistant">
-                   <MessageCircle className="w-4 h-4" style={{ stroke: '#25D366', fill: 'rgba(37, 211, 102, 0.2)' }} />
-                </a>
-                <a href="https://maps.app.goo.gl/3maGM2ZiA6mpDdJJ9" target="_blank" rel="noreferrer" className="flex items-center hover:scale-105 active:scale-95 transition-all duration-300 text-gray-300 hover:text-white" title="Vashi, Navi Mumbai Showroom">
-                  <MapPin className="w-4 h-4 text-blue-400" />
-                  <span className="hidden lg:inline text-[10px] tracking-wider uppercase font-mono pl-1.5 font-bold text-blue-300">Vashi, Navi Mumbai</span>
-                </a>
+                <div className="flex items-center space-x-3.5 border-l pl-4 border-slate-800">
+                  <a href="https://wa.me/919820885886" target="_blank" rel="noreferrer" className="hover:scale-110 active:scale-95 transition-all duration-300" title="WhatsApp Assistant">
+                     <MessageCircle className="w-4 h-4" style={{ stroke: '#25D366', fill: 'rgba(37, 211, 102, 0.2)' }} />
+                  </a>
+                  <a href="https://www.instagram.com/vcp_motors_2015?utm_source=qr" target="_blank" rel="noreferrer" className="hover:scale-110 active:scale-95 transition-all duration-300 text-pink-500 hover:text-pink-400" title="Instagram Profile">
+                     <Instagram className="w-4 h-4" />
+                  </a>
+                  <a href="https://maps.app.goo.gl/3maGM2ZiA6mpDdJJ9" target="_blank" rel="noreferrer" className="flex items-center hover:scale-105 active:scale-95 transition-all duration-300 text-gray-300 hover:text-white" title="Vashi, Navi Mumbai Showroom">
+                    <MapPin className="w-4 h-4 text-blue-400" />
+                    <span className="hidden lg:inline text-[10px] tracking-wider uppercase font-mono pl-1.5 font-bold text-blue-300">Vashi, Navi Mumbai</span>
+                  </a>
+                </div>
               </div>
-            </div>
 
-            {/* Mobile Contact & Socials */}
-            <div className="flex md:hidden items-center space-x-3 pr-2 border-r border-slate-800">
-              <a href="tel:+919820885886" className="p-1.5 rounded-lg transition-all text-white bg-slate-800/80 hover:bg-slate-700/80" title="Call Us">
-                <Phone className="w-4 h-4 text-blue-400" />
-              </a>
-              <a href="https://wa.me/919820885886" target="_blank" rel="noreferrer" className="p-1.5 rounded-lg hover:scale-110 transition-all bg-slate-800/80" title="WhatsApp Chat">
-                <MessageCircle className="w-4 h-4" style={{ stroke: '#25D366', fill: 'rgba(37, 211, 102, 0.2)' }} />
-              </a>
-              <a href="https://maps.app.goo.gl/3maGM2ZiA6mpDdJJ9" target="_blank" rel="noreferrer" className="p-1.5 rounded-lg hover:scale-110 transition-all bg-slate-800/80" title="Showroom Location">
-                <MapPin className="w-4 h-4 text-blue-400" />
-              </a>
-            </div>
+              {/* Mobile Contact & Socials Bar */}
+              <div className="flex md:hidden items-center space-x-1 xs:space-x-1.5">
+                <a href="tel:+919820885886" className="w-7 h-7 xs:w-8 xs:h-8 rounded-lg transition-all text-white bg-slate-800/80 hover:bg-slate-700/80 flex items-center justify-center shrink-0" title="Call Us">
+                  <Phone className="w-3.5 h-3.5 text-blue-400" />
+                </a>
+                <a href="https://wa.me/919820885886" target="_blank" rel="noreferrer" className="w-7 h-7 xs:w-8 xs:h-8 rounded-lg hover:scale-105 transition-all bg-slate-800/80 flex items-center justify-center shrink-0" title="WhatsApp Chat">
+                  <MessageCircle className="w-3.5 h-3.5" style={{ stroke: '#25D366', fill: 'rgba(37, 211, 102, 0.2)' }} />
+                </a>
+                <a href="https://www.instagram.com/vcp_motors_2015?utm_source=qr" target="_blank" rel="noreferrer" className="w-7 h-7 xs:w-8 xs:h-8 rounded-lg hover:scale-105 transition-all bg-slate-800/80 text-pink-400 flex items-center justify-center shrink-0" title="Instagram Profile">
+                  <Instagram className="w-3.5 h-3.5" />
+                </a>
+                <a href="https://maps.app.goo.gl/3maGM2ZiA6mpDdJJ9" target="_blank" rel="noreferrer" className="w-7 h-7 xs:w-8 xs:h-8 rounded-lg hover:scale-105 transition-all bg-slate-800/80 flex items-center justify-center shrink-0" title="Showroom Location">
+                  <MapPin className="w-3.5 h-3.5 text-blue-400" />
+                </a>
+                <button 
+                  className="w-7 h-7 xs:w-8 xs:h-8 rounded-lg bg-slate-800/80 hover:bg-slate-700/80 text-white flex items-center justify-center focus:outline-none transition-colors ml-0.5 shrink-0" 
+                  onClick={() => setIsMenuOpen(!isMenuOpen)} 
+                  aria-label="Toggle menu"
+                >
+                  {isMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+                </button>
+              </div>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-6 text-[13px] font-bold tracking-wider uppercase font-sans">
-              <Link to="/" className={`transition-all duration-200 py-1 ${
-                location.pathname === '/' 
-                  ? 'text-blue-400 border-b-2 border-blue-400' 
-                  : 'text-gray-300 hover:text-white'
-              }`}>Home</Link>
-              <Link to="/inventory" className={`transition-all duration-200 py-1 ${
-                location.pathname.startsWith('/inventory') 
-                  ? 'text-blue-400 border-b-2 border-blue-400' 
-                  : 'text-gray-300 hover:text-white'
-              }`}>Showroom</Link>
-              <Link to="/sell" className={`transition-all duration-200 py-1 ${
-                location.pathname === '/sell' 
-                  ? 'text-blue-400 border-b-2 border-blue-400' 
-                  : 'text-gray-300 hover:text-white'
-              }`}>Sell Your Car</Link>
-              <Link to="/about" className={`transition-all duration-200 py-1 ${
-                location.pathname === '/about' 
-                  ? 'text-blue-400 border-b-2 border-blue-400' 
-                  : 'text-gray-300 hover:text-white'
-              }`}>About</Link>
-              <a href="#contact" className="transition-all duration-200 text-gray-300 hover:text-white">Contact</a>
-            </div>
+              {/* Desktop Navigation */}
+              <div className="hidden md:flex items-center space-x-6 text-[13px] font-bold tracking-wider uppercase font-sans">
+                <Link to="/" className={`transition-all duration-200 py-1 ${
+                  location.pathname === '/' 
+                    ? 'text-blue-400 border-b-2 border-blue-400' 
+                    : 'text-gray-300 hover:text-white'
+                }`}>Home</Link>
+                <Link to="/inventory" className={`transition-all duration-200 py-1 ${
+                  location.pathname.startsWith('/inventory') 
+                    ? 'text-blue-400 border-b-2 border-blue-400' 
+                    : 'text-gray-300 hover:text-white'
+                }`}>Showroom</Link>
+                <Link to="/sell" className={`transition-all duration-200 py-1 ${
+                  location.pathname === '/sell' 
+                    ? 'text-blue-400 border-b-2 border-blue-400' 
+                    : 'text-gray-300 hover:text-white'
+                }`}>Sell Your Car</Link>
+                <Link to="/about" className={`transition-all duration-200 py-1 ${
+                  location.pathname === '/about' 
+                    ? 'text-blue-400 border-b-2 border-blue-400' 
+                    : 'text-gray-300 hover:text-white'
+                }`}>About</Link>
+                <a href="#contact" className="transition-all duration-200 text-gray-300 hover:text-white">Contact</a>
+              </div>
 
-            {/* Mobile Menu Toggle */}
-            <button className="md:hidden p-2 focus:outline-none transition-colors text-white hover:text-blue-400" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle menu">
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+            </div>
 
           </div>
-        </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
@@ -356,6 +375,10 @@ export default function CustomerLayout() {
               <li className="flex items-center">
                 <MessageCircle className="w-4 h-4 text-[#25D366] mr-3 shrink-0" />
                 <a href="https://wa.me/919820885886" target="_blank" rel="noreferrer" className="text-[#111827] hover:text-[#0057D9] transition-colors duration-200 font-mono text-xs font-bold">WhatsApp Us</a>
+              </li>
+              <li className="flex items-center">
+                <Instagram className="w-4 h-4 text-pink-600 mr-3 shrink-0" />
+                <a href="https://www.instagram.com/vcp_motors_2015?utm_source=qr" target="_blank" rel="noreferrer" className="text-[#111827] hover:text-[#0057D9] transition-colors duration-200 font-mono text-xs font-bold">@vcp_motors_2015</a>
               </li>
             </ul>
           </div>

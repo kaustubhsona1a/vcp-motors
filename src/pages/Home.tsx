@@ -63,19 +63,19 @@ export default function Home() {
       </Helmet>
 
       {/* Hero Space - Hero CTAs */}
-      <section className="relative min-h-[calc(100vh-80px)] flex flex-col items-center justify-start pt-40 sm:pt-56 md:pt-72 pb-12 px-4 text-center z-20">
-        <div className="max-w-4xl mx-auto flex flex-col items-center justify-center w-full text-center mt-6 sm:mt-10">
-          <div className="relative z-30 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-xs sm:max-w-md mx-auto">
+      <section className="relative min-h-[calc(100vh-80px)] flex flex-col items-center justify-start pt-52 sm:pt-72 md:pt-96 pb-12 px-4 text-center z-20">
+        <div className="max-w-4xl mx-auto flex flex-col items-center justify-center w-full text-center mt-12 sm:mt-20">
+          <div className="relative z-30 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4 w-full max-w-xs sm:max-w-md mx-auto">
             <Link 
               to="/inventory" 
-              className="flex items-center justify-center w-full sm:w-48 px-6 py-3 bg-[#0057D9] hover:bg-[#2563EB] text-white border-2 border-[#0057D9] hover:border-[#2563EB] font-bold tracking-wider uppercase text-[11px] sm:text-xs rounded-lg sm:rounded-xl shadow-lg shadow-blue-600/30 transition-all duration-300 transform hover:-translate-y-0.5 font-mono box-border text-center"
+              className="flex items-center justify-center w-40 sm:w-48 px-4 py-2 sm:px-6 sm:py-2.5 bg-[#0057D9] hover:bg-[#2563EB] text-white border-2 border-[#0057D9] hover:border-[#2563EB] font-bold tracking-wider uppercase text-[10px] sm:text-xs rounded-lg sm:rounded-xl shadow-lg shadow-blue-600/30 transition-all duration-300 transform hover:-translate-y-0.5 font-mono box-border text-center"
             >
               Browse Inventory
             </Link>
 
             <a 
               href="#contact" 
-              className="flex items-center justify-center w-full sm:w-48 px-6 py-3 bg-slate-900/60 hover:bg-slate-900/80 text-white border-2 border-white/80 backdrop-blur-md font-bold tracking-wider uppercase text-[11px] sm:text-xs rounded-lg sm:rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 font-mono box-border text-center"
+              className="flex items-center justify-center w-40 sm:w-48 px-4 py-2 sm:px-6 sm:py-2.5 bg-slate-900/60 hover:bg-slate-900/80 text-white border-2 border-white/80 backdrop-blur-md font-bold tracking-wider uppercase text-[10px] sm:text-xs rounded-lg sm:rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 font-mono box-border text-center"
             >
               Contact Us
             </a>
