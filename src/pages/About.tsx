@@ -66,7 +66,7 @@ export default function About() {
                       src={img} 
                       alt={`Client Delivery ${i + 1}`} 
                       className="w-full h-full object-cover group-hover:scale-105 transition-all duration-500 ease-out"
-                      onError={(e) => { e.currentTarget.src = "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&q=80&w=800" }}
+                      onError={(e) => { e.currentTarget.style.display = 'none'; }}
                     />
                     
                     {/* Minimal VERIFIED badge */}
@@ -133,7 +133,7 @@ export default function About() {
               alt="Handover Celebration"
               onClick={(e) => e.stopPropagation()}
               className="w-full h-full max-h-[70vh] object-contain rounded-2xl border border-white/10 shadow-2xl"
-              onError={(e) => { e.currentTarget.src = "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format=crop&q=80&w=800" }}
+              onError={(e) => { e.currentTarget.style.display = 'none'; }}
             />
 
             <button

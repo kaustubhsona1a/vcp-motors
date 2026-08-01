@@ -181,7 +181,7 @@ export default function AdminAddVehicle() {
           registration: formData.registration,
           description: formData.description,
           instagramReel: formData.instagramReel,
-          images: images.length > 0 ? images : ['https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&q=80&w=800'],
+          images: images,
         });
       } else {
         const newVehicle: Vehicle = {
@@ -200,7 +200,7 @@ export default function AdminAddVehicle() {
           registration: formData.registration,
           description: formData.description,
           instagramReel: formData.instagramReel,
-          images: images.length > 0 ? images : ['https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&q=80&w=800'],
+          images: images,
           features: ['Air Conditioning', 'Power Steering'], 
           status: 'Available',
         };

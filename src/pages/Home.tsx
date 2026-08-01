@@ -63,8 +63,8 @@ export default function Home() {
       </Helmet>
 
       {/* Hero Space - Hero CTAs */}
-      <section className="relative min-h-[calc(100vh-80px)] flex flex-col items-center justify-start pt-52 sm:pt-72 md:pt-96 pb-12 px-4 text-center z-20">
-        <div className="max-w-4xl mx-auto flex flex-col items-center justify-center w-full text-center mt-12 sm:mt-20">
+      <section className="relative min-h-[calc(100vh-80px)] flex flex-col items-center justify-start pt-44 sm:pt-60 md:pt-80 pb-12 px-4 text-center z-20">
+        <div className="max-w-4xl mx-auto flex flex-col items-center justify-center w-full text-center mt-6 sm:mt-12">
           <div className="relative z-30 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4 w-full max-w-xs sm:max-w-md mx-auto">
             <Link 
               to="/inventory" 

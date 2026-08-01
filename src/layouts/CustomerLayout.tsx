@@ -123,8 +123,7 @@ export default function CustomerLayout() {
   const showVideo = false;
   const showMobileVideo = false;
 
-  const defaultHeroBg = "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&q=80&w=2000";
-  const heroDesktopImage = siteConfig.homeHeroImage || defaultHeroBg;
+  const heroDesktopImage = siteConfig.homeHeroImage || "";
   const heroMobileImage = siteConfig.homeHeroMobileImage || heroDesktopImage;
 
   return (
@@ -154,7 +153,7 @@ export default function CustomerLayout() {
             onEnded={handleVideoEnded}
             onLoadedMetadata={handleLoadedMetadata}
           />
-        ) : (
+        ) : heroDesktopImage ? (
           <img 
             src={heroDesktopImage}
             alt="Showroom Desktop Backdrop"
@@ -164,6 +163,8 @@ export default function CustomerLayout() {
                 : 'opacity-70 filter blur-[3px]'
             }`}
           />
+        ) : (
+          <div className="hidden md:block absolute inset-0 w-full h-full bg-gradient-to-br from-slate-950 via-slate-900 to-black" />
         )}
         
         {/* Mobile-specific Showcase Backdrop */}
@@ -181,7 +182,7 @@ export default function CustomerLayout() {
             onEnded={handleVideoEnded}
             onLoadedMetadata={handleLoadedMetadata}
           />
-        ) : (
+        ) : heroMobileImage ? (
           <img 
             src={heroMobileImage}
             alt="Showroom Mobile Backdrop"
@@ -191,6 +192,8 @@ export default function CustomerLayout() {
                 : 'opacity-70 filter blur-[3px]'
             }`}
           />
+        ) : (
+          <div className="block md:hidden absolute inset-0 w-full h-full bg-gradient-to-br from-slate-950 via-slate-900 to-black" />
         )}
         {/* Clear overlay without dark tint on home page hero */}
         <div className={`absolute inset-0 transition-all duration-700 pointer-events-none ${
