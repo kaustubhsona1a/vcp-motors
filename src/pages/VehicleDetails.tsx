@@ -201,21 +201,21 @@ export default function VehicleDetails() {
   const renderGallery = (isMobile: boolean) => {
     if (!car) return null;
     return (
-      <div className={`shadow-sm rounded-2xl overflow-hidden bg-zinc-900/55 border border-zinc-900/80 backdrop-blur-md ${isMobile ? 'p-2.5 space-y-3' : 'p-4 space-y-4'}`}>
+      <div className={`shadow-lg rounded-2xl overflow-hidden bg-white border border-gray-300 ${isMobile ? 'p-3 space-y-3' : 'p-5 space-y-4'}`}>
         <div 
-          className={`relative overflow-hidden bg-zinc-950/20 rounded-xl group border border-zinc-800/80 cursor-zoom-in ${isMobile ? 'h-[30vh] sm:h-[40vh]' : 'h-[45vh] md:h-[55vh]'}`}
+          className={`relative overflow-hidden bg-slate-900/5 rounded-xl group border border-gray-200 cursor-zoom-in ${isMobile ? 'h-[32vh] sm:h-[42vh]' : 'h-[45vh] md:h-[55vh]'}`}
           onClick={() => setIsFullscreen(true)}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
           {car.images?.[activeImage] ? (
-            <img src={car.images[activeImage]} alt={car.make} className="w-full h-full object-contain transition-all duration-500 opacity-95 group-hover:opacity-100" />
+            <img src={car.images[activeImage]} alt={car.make} className="w-full h-full object-contain transition-all duration-500" />
           ) : (
-            <div className="w-full h-full flex flex-col items-center justify-center bg-zinc-900/80 text-zinc-400 p-4 font-mono text-center">
+            <div className="w-full h-full flex flex-col items-center justify-center bg-gray-900 text-gray-200 p-4 font-mono text-center">
               <Car className="w-12 h-12 mb-2 text-[#0057D9]" />
-              <span className="text-sm font-bold uppercase tracking-wider text-white">V C P MOTORS</span>
-              <span className="text-xs text-zinc-400 mt-1">Photo Coming Soon</span>
+              <span className="text-sm font-black uppercase tracking-wider text-white">V C P MOTORS</span>
+              <span className="text-xs text-gray-300 mt-1 font-bold">Photo Coming Soon</span>
             </div>
           )}
         </div>
@@ -224,7 +224,7 @@ export default function VehicleDetails() {
             <button 
               key={img} 
               onClick={() => setActiveImage(i)}
-              className={`flex-shrink-0 overflow-hidden rounded-xl border transition-all duration-300 ${isMobile ? 'w-20 h-15 sm:w-24 sm:h-18' : 'w-32 h-24'} ${activeImage === i ? 'border-white scale-[1.02] opacity-100 shadow-md shadow-white/10' : 'border-zinc-800 opacity-60 hover:opacity-100'}`}
+              className={`flex-shrink-0 overflow-hidden rounded-xl border-2 transition-all duration-300 ${isMobile ? 'w-20 h-15 sm:w-24 sm:h-18' : 'w-32 h-24'} ${activeImage === i ? 'border-[#0057D9] scale-[1.02] ring-2 ring-[#0057D9]/30 shadow-md' : 'border-gray-200 opacity-70 hover:opacity-100 hover:border-gray-400'}`}
             >
               <img src={img} alt="Thumbnail" loading="lazy" className="w-full h-full object-cover" />
             </button>
@@ -232,11 +232,11 @@ export default function VehicleDetails() {
           
           <button 
             onClick={handleWhatsAppPhotos}
-            className={`flex-shrink-0 rounded-xl border border-dashed border-zinc-800 hover:border-white/50 bg-zinc-950/40 hover:bg-zinc-950/80 flex flex-col items-center justify-center p-2 text-center transition-all duration-300 hover:scale-[1.02] cursor-pointer group ${isMobile ? 'w-20 h-15 sm:w-24 sm:h-18' : 'w-32 h-24'}`}
+            className={`flex-shrink-0 rounded-xl border-2 border-dashed border-gray-300 hover:border-[#0057D9] bg-slate-50 hover:bg-blue-50 flex flex-col items-center justify-center p-2 text-center transition-all duration-300 hover:scale-[1.02] cursor-pointer group ${isMobile ? 'w-20 h-15 sm:w-24 sm:h-18' : 'w-32 h-24'}`}
             title="Enquire on WhatsApp for more photos"
           >
-            <Plus className={`${isMobile ? 'w-4 h-4 mb-0.5' : 'w-5 h-5 mb-1'} text-zinc-400 group-hover:text-white transition-colors`} />
-            <span className={`${isMobile ? 'text-[6px] sm:text-[7px]' : 'text-[8px]'} leading-tight font-semibold text-zinc-500 group-hover:text-zinc-300 transition-colors uppercase tracking-widest font-mono`}>
+            <Plus className={`${isMobile ? 'w-4 h-4 mb-0.5' : 'w-5 h-5 mb-1'} text-gray-600 group-hover:text-[#0057D9] transition-colors`} />
+            <span className={`${isMobile ? 'text-[7px] sm:text-[8px]' : 'text-[9px]'} leading-tight font-extrabold text-gray-700 group-hover:text-[#0057D9] transition-colors uppercase tracking-wider font-mono`}>
               More Photos
             </span>
           </button>
@@ -248,49 +248,49 @@ export default function VehicleDetails() {
   const renderTechnicalDetails = (isMobile: boolean) => {
     if (!car) return null;
     return (
-      <div className={`bg-zinc-900/55 border border-zinc-900 rounded-2xl shadow-sm animate-fade-in backdrop-blur-md ${isMobile ? 'p-4 space-y-4' : 'p-10 space-y-8'}`}>
+      <div className={`bg-white border border-gray-300 rounded-2xl shadow-lg animate-fade-in ${isMobile ? 'p-4 space-y-4' : 'p-8 md:p-10 space-y-8'}`}>
         <div>
-          <h2 className={`font-serif font-bold text-white border-b border-zinc-800/80 ${isMobile ? 'text-lg mb-4 pb-3' : 'text-2xl mb-8 pb-5'}`}>Technical Details</h2>
-          <div className={`grid grid-cols-2 ${isMobile ? 'gap-2' : 'md:grid-cols-4 gap-4'} text-zinc-300`}>
-            <div className={`bg-zinc-950/40 border border-zinc-800/80 rounded-xl ${isMobile ? 'p-2.5' : 'p-4'}`}>
-              <p className={`${isMobile ? 'text-[9px]' : 'text-[11px]'} tracking-wider uppercase text-zinc-500 mb-1 font-semibold font-sans`}>Make</p>
-              <p className="text-white font-bold text-xs sm:text-sm md:text-base tracking-wide uppercase">{car.make}</p>
+          <h2 className={`font-sans font-black text-gray-950 border-b border-gray-200 tracking-tight uppercase ${isMobile ? 'text-lg mb-4 pb-3' : 'text-2xl mb-6 pb-4'}`}>Technical Details</h2>
+          <div className={`grid grid-cols-2 ${isMobile ? 'gap-2.5' : 'md:grid-cols-4 gap-4'} text-gray-900`}>
+            <div className={`bg-slate-50 border border-slate-200 rounded-xl ${isMobile ? 'p-3' : 'p-4'}`}>
+              <p className={`${isMobile ? 'text-[10px]' : 'text-xs'} tracking-wider uppercase text-gray-700 mb-1 font-extrabold font-mono`}>Make</p>
+              <p className="text-gray-950 font-black text-sm sm:text-base md:text-lg tracking-wide uppercase">{car.make}</p>
             </div>
-            <div className={`bg-zinc-950/40 border border-zinc-800/80 rounded-xl ${isMobile ? 'p-2.5' : 'p-4'}`}>
-              <p className={`${isMobile ? 'text-[9px]' : 'text-[11px]'} tracking-wider uppercase text-zinc-500 mb-1 font-semibold font-sans`}>Model</p>
-              <p className="text-white font-bold text-xs sm:text-sm md:text-base tracking-wide uppercase">{car.model}</p>
+            <div className={`bg-slate-50 border border-slate-200 rounded-xl ${isMobile ? 'p-3' : 'p-4'}`}>
+              <p className={`${isMobile ? 'text-[10px]' : 'text-xs'} tracking-wider uppercase text-gray-700 mb-1 font-extrabold font-mono`}>Model</p>
+              <p className="text-gray-950 font-black text-sm sm:text-base md:text-lg tracking-wide uppercase">{car.model}</p>
             </div>
-            <div className={`bg-zinc-950/40 border border-zinc-800/80 rounded-xl ${isMobile ? 'p-2.5' : 'p-4'}`}>
-              <p className={`${isMobile ? 'text-[9px]' : 'text-[11px]'} tracking-wider uppercase text-zinc-500 mb-1 font-semibold font-sans`}>Year</p>
-              <p className="text-white font-bold text-xs sm:text-sm md:text-base tracking-wide uppercase font-sans">{car.year}</p>
+            <div className={`bg-slate-50 border border-slate-200 rounded-xl ${isMobile ? 'p-3' : 'p-4'}`}>
+              <p className={`${isMobile ? 'text-[10px]' : 'text-xs'} tracking-wider uppercase text-gray-700 mb-1 font-extrabold font-mono`}>Year</p>
+              <p className="text-gray-950 font-black text-sm sm:text-base md:text-lg tracking-wide uppercase font-sans">{car.year}</p>
             </div>
-            <div className={`bg-zinc-950/40 border border-zinc-800/80 rounded-xl ${isMobile ? 'p-2.5' : 'p-4'}`}>
-              <p className={`${isMobile ? 'text-[9px]' : 'text-[11px]'} tracking-wider uppercase text-zinc-500 mb-1 font-semibold font-sans`}>Mileage</p>
-              <p className="text-white font-black text-xs sm:text-sm md:text-base tracking-wide uppercase font-sans">{car.mileage.toLocaleString()} KM</p>
+            <div className={`bg-slate-50 border border-slate-200 rounded-xl ${isMobile ? 'p-3' : 'p-4'}`}>
+              <p className={`${isMobile ? 'text-[10px]' : 'text-xs'} tracking-wider uppercase text-gray-700 mb-1 font-extrabold font-mono`}>Mileage</p>
+              <p className="text-[#0057D9] font-black text-sm sm:text-base md:text-lg tracking-wide uppercase font-sans">{car.mileage.toLocaleString()} KM</p>
             </div>
-            <div className={`bg-zinc-950/40 border border-zinc-800/80 rounded-xl ${isMobile ? 'p-2.5' : 'p-4'}`}>
-              <p className={`${isMobile ? 'text-[9px]' : 'text-[11px]'} tracking-wider uppercase text-zinc-500 mb-1 font-semibold font-sans`}>Fuel Type</p>
-              <p className="text-white font-bold text-xs sm:text-sm md:text-base tracking-wide uppercase">{car.fuelType}</p>
+            <div className={`bg-slate-50 border border-slate-200 rounded-xl ${isMobile ? 'p-3' : 'p-4'}`}>
+              <p className={`${isMobile ? 'text-[10px]' : 'text-xs'} tracking-wider uppercase text-gray-700 mb-1 font-extrabold font-mono`}>Fuel Type</p>
+              <p className="text-gray-950 font-black text-sm sm:text-base md:text-lg tracking-wide uppercase">{car.fuelType}</p>
             </div>
-            <div className={`bg-zinc-950/40 border border-zinc-800/80 rounded-xl ${isMobile ? 'p-2.5' : 'p-4'}`}>
-              <p className={`${isMobile ? 'text-[9px]' : 'text-[11px]'} tracking-wider uppercase text-zinc-500 mb-1 font-semibold font-sans`}>Transmission</p>
-              <p className="text-white font-bold text-xs sm:text-sm md:text-base tracking-wide uppercase">{car.transmission}</p>
+            <div className={`bg-slate-50 border border-slate-200 rounded-xl ${isMobile ? 'p-3' : 'p-4'}`}>
+              <p className={`${isMobile ? 'text-[10px]' : 'text-xs'} tracking-wider uppercase text-gray-700 mb-1 font-extrabold font-mono`}>Transmission</p>
+              <p className="text-gray-950 font-black text-sm sm:text-base md:text-lg tracking-wide uppercase">{car.transmission}</p>
             </div>
-            <div className={`bg-zinc-950/40 border border-zinc-800/80 rounded-xl ${isMobile ? 'p-2.5' : 'p-4'}`}>
-              <p className={`${isMobile ? 'text-[9px]' : 'text-[11px]'} tracking-wider uppercase text-zinc-500 mb-1 font-semibold font-sans`}>Ownership</p>
-              <p className="text-white font-bold text-xs sm:text-sm md:text-base tracking-wide uppercase">{car.ownership}</p>
+            <div className={`bg-slate-50 border border-slate-200 rounded-xl ${isMobile ? 'p-3' : 'p-4'}`}>
+              <p className={`${isMobile ? 'text-[10px]' : 'text-xs'} tracking-wider uppercase text-gray-700 mb-1 font-extrabold font-mono`}>Ownership</p>
+              <p className="text-gray-950 font-black text-sm sm:text-base md:text-lg tracking-wide uppercase">{car.ownership}</p>
             </div>
-            <div className={`bg-zinc-950/40 border border-zinc-800/80 rounded-xl ${isMobile ? 'p-2.5' : 'p-4'}`}>
-              <p className={`${isMobile ? 'text-[9px]' : 'text-[11px]'} tracking-wider uppercase text-zinc-500 mb-1 font-semibold font-sans`}>Color</p>
-              <p className="text-white font-bold text-xs sm:text-sm md:text-base tracking-wide uppercase">{car.color}</p>
+            <div className={`bg-slate-50 border border-slate-200 rounded-xl ${isMobile ? 'p-3' : 'p-4'}`}>
+              <p className={`${isMobile ? 'text-[10px]' : 'text-xs'} tracking-wider uppercase text-gray-700 mb-1 font-extrabold font-mono`}>Color</p>
+              <p className="text-gray-950 font-black text-sm sm:text-base md:text-lg tracking-wide uppercase">{car.color}</p>
             </div>
           </div>
         </div>
 
         {car.description && (
-          <div className={`border-t border-zinc-800/80 ${isMobile ? 'pt-4' : 'pt-8'}`}>
-            <h3 className="text-xs sm:text-sm font-bold font-sans text-white mb-2 sm:mb-4 uppercase tracking-widest">Additional Info</h3>
-            <p className={`text-zinc-300 font-light leading-relaxed whitespace-pre-line font-serif ${isMobile ? 'text-xs' : 'text-sm'}`}>{car.description}</p>
+          <div className={`border-t border-gray-200 ${isMobile ? 'pt-4' : 'pt-6'}`}>
+            <h3 className="text-xs sm:text-sm font-extrabold font-mono text-gray-950 mb-2 sm:mb-3 uppercase tracking-wider">Additional Information</h3>
+            <p className={`text-gray-800 font-medium leading-relaxed whitespace-pre-line font-sans ${isMobile ? 'text-xs' : 'text-sm sm:text-base'}`}>{car.description}</p>
           </div>
         )}
       </div>
@@ -300,52 +300,54 @@ export default function VehicleDetails() {
   const renderPriceBox = (isMobile: boolean) => {
     if (!car) return null;
     return (
-      <div className={`bg-zinc-900/55 border border-zinc-900/80 relative rounded-2xl shadow-sm backdrop-blur-md ${isMobile ? 'p-5' : 'p-10'}`}>
-        <div className={`absolute top-0 right-0 bg-white text-zinc-950 font-mono font-bold tracking-widest uppercase ${isMobile ? 'text-[8px] px-3 py-1.5 rounded-bl-xl rounded-tr-2xl' : 'text-[10px] px-4 py-2 rounded-bl-xl rounded-tr-2xl'}`}>
+      <div className={`bg-white border border-gray-300 relative rounded-2xl shadow-lg ${isMobile ? 'p-5' : 'p-8 md:p-10'}`}>
+        <div className={`absolute top-0 right-0 bg-[#0057D9] text-white font-mono font-black tracking-widest uppercase shadow-md ${isMobile ? 'text-[9px] px-3 py-1.5 rounded-bl-xl rounded-tr-2xl' : 'text-xs px-4 py-2 rounded-bl-xl rounded-tr-2xl'}`}>
           Verified Asset
         </div>
-        <h1 className={`font-serif font-bold text-white tracking-tight leading-tight ${isMobile ? 'text-xl mt-1' : 'text-3xl mt-4'}`}>
+        <h1 className={`font-sans font-black text-gray-950 tracking-tight leading-tight uppercase ${isMobile ? 'text-2xl mt-1' : 'text-3xl md:text-4xl mt-3'}`}>
           {car.make} <br/>
-          <span className="font-light text-zinc-400">{car.model}</span>
+          <span className="font-extrabold text-gray-800">{car.model}</span>
         </h1>
-        <p className={`tracking-widest uppercase text-zinc-500 font-mono ${isMobile ? 'text-[9px] mt-1.5 mb-4' : 'text-[10px] mt-3 mb-8'}`}>{car.variant}</p>
-        <div className={`font-bold text-white border-b border-zinc-800 font-serif ${isMobile ? 'text-2xl pb-4 mb-4' : 'text-3xl pb-6 mb-4'}`}>{formatPrice(car.price)}</div>
+        <div className="mt-2 mb-4">
+          <span className="inline-block text-xs font-mono font-extrabold tracking-wider uppercase text-gray-800 bg-gray-100 border border-gray-200 px-3 py-1 rounded-md">{car.variant}</span>
+        </div>
+        <div className={`font-black text-[#0057D9] border-b border-gray-200 font-mono tracking-tight ${isMobile ? 'text-3xl pb-4 mb-4' : 'text-4xl pb-6 mb-6'}`}>{formatPrice(car.price)}</div>
 
         {car.instagramReel && (
-          <div className={`rounded-2xl bg-gradient-to-r from-white/5 to-zinc-950/20 border border-white/10 flex flex-col ${isMobile ? 'mb-4 p-3 gap-2' : 'mb-8 p-4.5 gap-3.5'}`}>
+          <div className={`rounded-2xl bg-gradient-to-r from-pink-50 via-purple-50 to-blue-50 border border-pink-200 flex flex-col ${isMobile ? 'mb-4 p-3.5 gap-2.5' : 'mb-6 p-4 gap-3'}`}>
             <div className="flex items-center gap-3">
-              <span className={`inline-flex items-center justify-center rounded-full bg-gradient-to-tr from-[#f58529] via-[#dd2a7b] to-[#8134af] text-white ${isMobile ? 'w-6 h-6' : 'w-7 h-7'}`}>
-                <Instagram className={isMobile ? 'w-3 h-3' : 'w-4 h-4'} />
+              <span className={`inline-flex items-center justify-center rounded-full bg-gradient-to-tr from-[#f58529] via-[#dd2a7b] to-[#8134af] text-white ${isMobile ? 'w-7 h-7' : 'w-8 h-8'}`}>
+                <Instagram className={isMobile ? 'w-3.5 h-3.5' : 'w-4 h-4'} />
               </span>
               <div>
-                <p className={`font-bold text-white tracking-widest uppercase font-mono ${isMobile ? 'text-[9px]' : 'text-[10px]'}`}>Instagram Reel highlight</p>
-                <p className={`text-zinc-500 uppercase tracking-wider font-mono ${isMobile ? 'text-[8px]' : 'text-[9px]'}`}>Watch immersive video review</p>
+                <p className={`font-black text-gray-950 tracking-wide uppercase font-mono ${isMobile ? 'text-[10px]' : 'text-xs'}`}>Instagram Reel Highlight</p>
+                <p className={`text-gray-700 font-bold uppercase tracking-wider font-mono ${isMobile ? 'text-[8.5px]' : 'text-[10px]'}`}>Watch full video review</p>
               </div>
             </div>
             <button
               onClick={() => window.open(car.instagramReel, '_blank', 'noopener,noreferrer')}
-              className={`w-full text-center bg-gradient-to-tr from-[#f58529] via-[#dd2a7b] to-[#8134af] text-white font-bold rounded-xl uppercase tracking-widest font-mono transition-all flex items-center justify-center gap-2 border border-transparent shadow-lg shadow-pink-500/20 hover:brightness-110 hover:scale-[1.01] active:scale-95 ${isMobile ? 'py-2.5 text-[9px]' : 'py-3.5 text-[10px]'}`}
+              className={`w-full text-center bg-gradient-to-tr from-[#f58529] via-[#dd2a7b] to-[#8134af] text-white font-black rounded-xl uppercase tracking-wider font-mono transition-all flex items-center justify-center gap-2 shadow-md hover:brightness-105 active:scale-95 ${isMobile ? 'py-2.5 text-[10px]' : 'py-3 text-xs'}`}
             >
               Watch on Instagram ↗
             </button>
           </div>
         )}
         
-        <p className={`tracking-wider text-gray-500 flex items-center font-mono font-semibold ${isMobile ? 'text-[10px] mb-4' : 'text-xs mb-8'}`}>
+        <p className={`tracking-wider text-gray-800 flex items-center font-mono font-extrabold ${isMobile ? 'text-xs mb-4' : 'text-sm mb-6'}`}>
           <a href="https://maps.app.goo.gl/3maGM2ZiA6mpDdJJ9" target="_blank" rel="noreferrer" className="hover:text-[#0057D9] transition-colors duration-300 inline-flex items-center">
-            <MapPin className="w-4 h-4 mr-2 text-[#0057D9]" /> Showroom in Vashi, Navi Mumbai
+            <MapPin className="w-4 h-4 mr-2 text-[#0057D9] shrink-0" /> Showroom in Vashi, Navi Mumbai
           </a>
         </p>
 
-        <div className={`space-y-2.5 font-mono uppercase font-bold ${isMobile ? 'text-[10px]' : 'text-[11px]'}`}>
-          <button onClick={handleCall} className={`w-full bg-white hover:bg-zinc-900 text-zinc-950 hover:text-white rounded-xl transition-all duration-300 border border-transparent hover:border-white/20 shadow-sm ${isMobile ? 'py-3' : 'py-4.5'}`}>
+        <div className={`space-y-3 font-mono uppercase font-black ${isMobile ? 'text-xs' : 'text-xs sm:text-sm'}`}>
+          <button onClick={handleCall} className={`w-full bg-[#0057D9] hover:bg-[#0042A5] text-white rounded-xl transition-all duration-300 shadow-md ${isMobile ? 'py-3.5' : 'py-4'}`}>
             Call Us Now
           </button>
-          <button onClick={handleWhatsApp} className={`w-full bg-zinc-950 hover:bg-zinc-900 text-white border border-zinc-800 hover:border-white/25 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 ${isMobile ? 'py-3' : 'py-4.5'}`}>
+          <button onClick={handleWhatsApp} className={`w-full bg-[#25D366] hover:bg-[#20ba5a] text-white rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-md ${isMobile ? 'py-3.5' : 'py-4'}`}>
             <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397 0 12.008 0c3.205.001 6.216 1.25 8.484 3.52 2.268 2.27 3.516 5.283 3.515 8.491-.005 6.655-5.344 12.003-11.95 12.003-.111 0-.221 0-.332-.005l-5.69 2.12c-.22.08-.454.04-.63-.12l-.35-.35zM6.57 17.51l.36.21c1.55.93 3.32 1.42 5.15 1.42a9.92 9.92 0 0 0 9.95-9.94c0-2.65-1.03-5.15-2.9-7.02C17.26 3.2 14.77 2.17 12.1 2.17 6.64 2.17 2.2 6.61 2.2 12.07c0 1.93.53 3.82 1.54 5.43l.23.37-1.01 3.69 3.61-.95zM17.43 14.93c-.29-.15-1.74-.86-2.01-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07a8.1 8.1 0 0 1-2.39-1.48 8.94 8.94 0 0 1-1.65-2.05c-.17-.3-.02-.46.13-.61.13-.13.29-.34.44-.51.15-.17.2-.29.3-.49.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.59-.49-.51-.67-.52l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.47 1.07 2.89 1.22 3.1 1.05 1.41 1.74 1.74 3.1 2.45a9.5 9.5 0 0 0 3.7.8c1.3-.01 2.44-.45 2.74-1 .3-.53.3-1 .22-1.12-.08-.12-.3-.19-.59-.34z"/></svg>
             Shoot WhatsApp Inquiry
           </button>
-          <button onClick={handleShare} className={`w-full bg-zinc-950/50 hover:bg-zinc-950 text-white hover:text-zinc-200 border border-zinc-805 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-sm ${isMobile ? 'py-3' : 'py-4.5'}`}>
+          <button onClick={handleShare} className={`w-full bg-slate-900 hover:bg-slate-800 text-white rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-md ${isMobile ? 'py-3.5' : 'py-4'}`}>
             <Share2 className="w-4 h-4" />
             Share This Listing
           </button>
@@ -357,17 +359,17 @@ export default function VehicleDetails() {
   const renderEMICalculator = (isMobile: boolean) => {
     if (!car) return null;
     return (
-      <div className={`bg-zinc-900/55 border border-zinc-900 relative rounded-2xl shadow-sm backdrop-blur-md ${isMobile ? 'p-5 space-y-4' : 'p-8 space-y-6'}`}>
-        <h2 className={`font-serif font-bold text-white uppercase tracking-widest border-b border-zinc-850 flex items-center justify-between ${isMobile ? 'pb-2 text-xs' : 'pb-3 text-sm'}`}>
-          <span>EMI ESTIMATE CALCULATOR</span>
-          <span className="text-[9px] uppercase tracking-widest font-mono text-zinc-500">Live</span>
+      <div className={`bg-white border border-gray-300 relative rounded-2xl shadow-lg ${isMobile ? 'p-5 space-y-4' : 'p-8 space-y-6'}`}>
+        <h2 className={`font-mono font-black text-gray-950 uppercase tracking-wider border-b border-gray-200 flex items-center justify-between ${isMobile ? 'pb-2.5 text-xs' : 'pb-3 text-sm'}`}>
+          <span>EMI Estimate Calculator</span>
+          <span className="text-xs uppercase tracking-widest font-mono text-[#0057D9] bg-blue-50 border border-blue-100 px-2 py-0.5 rounded-md font-bold">Live</span>
         </h2>
         
         {/* Loan Amount Slider */}
         <div className="space-y-2">
           <div className="flex justify-between items-center text-xs">
-            <label className="text-zinc-400 font-semibold uppercase tracking-wider font-mono">Loan Amount</label>
-            <span className="text-white font-bold font-sans">{formatPrice(loanAmount || Math.round(car.price * 0.8))}</span>
+            <label className="text-gray-800 font-extrabold uppercase tracking-wider font-mono">Loan Amount</label>
+            <span className="text-[#0057D9] font-black font-mono">{formatPrice(loanAmount || Math.round(car.price * 0.8))}</span>
           </div>
           <input 
             type="range"
@@ -376,9 +378,9 @@ export default function VehicleDetails() {
             step={Math.round(car.price * 0.01) || 1000}
             value={loanAmount || Math.round(car.price * 0.8)}
             onChange={(e) => setLoanAmount(Number(e.target.value))}
-            className="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-white focus:outline-none"
+            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#0057D9] focus:outline-none"
           />
-          <div className="flex justify-between text-[8px] sm:text-[9px] text-zinc-500 font-mono tracking-wider uppercase font-semibold">
+          <div className="flex justify-between text-[9px] sm:text-[10px] text-gray-700 font-mono tracking-wider uppercase font-bold">
             <span>Min {formatPrice(Math.round(car.price * 0.1))} (10%)</span>
             <span>Max {formatPrice(car.price)}</span>
           </div>
@@ -387,8 +389,8 @@ export default function VehicleDetails() {
         {/* Interest Rate Slider */}
         <div className="space-y-2">
           <div className="flex justify-between items-center text-xs">
-            <label className="text-zinc-400 font-semibold uppercase tracking-wider font-mono">Interest Rate</label>
-            <span className="text-white font-bold font-sans">{interestRate.toFixed(2)}% p.a.</span>
+            <label className="text-gray-800 font-extrabold uppercase tracking-wider font-mono">Interest Rate</label>
+            <span className="text-[#0057D9] font-black font-mono">{interestRate.toFixed(2)}% p.a.</span>
           </div>
           <input 
             type="range"
@@ -397,9 +399,9 @@ export default function VehicleDetails() {
             step="0.25"
             value={interestRate}
             onChange={(e) => setInterestRate(Number(e.target.value))}
-            className="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-white focus:outline-none"
+            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#0057D9] focus:outline-none"
           />
-          <div className="flex justify-between text-[8px] sm:text-[9px] text-zinc-500 font-mono tracking-wider uppercase font-semibold">
+          <div className="flex justify-between text-[9px] sm:text-[10px] text-gray-700 font-mono tracking-wider uppercase font-bold">
             <span>5.0% Min</span>
             <span>20.0% Max</span>
           </div>
@@ -408,8 +410,8 @@ export default function VehicleDetails() {
         {/* Tenure Slider */}
         <div className="space-y-2">
           <div className="flex justify-between items-center text-xs">
-            <label className="text-zinc-400 font-semibold uppercase tracking-wider font-mono">Tenure (Years)</label>
-            <span className="text-white font-bold font-sans">{tenureYears} {tenureYears === 1 ? 'Year' : 'Years'} ({tenureYears * 12} Months)</span>
+            <label className="text-gray-800 font-extrabold uppercase tracking-wider font-mono">Tenure (Years)</label>
+            <span className="text-[#0057D9] font-black font-mono">{tenureYears} {tenureYears === 1 ? 'Year' : 'Years'} ({tenureYears * 12} Mos)</span>
           </div>
           <input 
             type="range"
@@ -418,35 +420,35 @@ export default function VehicleDetails() {
             step="1"
             value={tenureYears}
             onChange={(e) => setTenureYears(Number(e.target.value))}
-            className="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-white focus:outline-none"
+            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#0057D9] focus:outline-none"
           />
-          <div className="flex justify-between text-[8px] sm:text-[9px] text-zinc-500 font-mono tracking-wider uppercase font-semibold">
+          <div className="flex justify-between text-[9px] sm:text-[10px] text-gray-700 font-mono tracking-wider uppercase font-bold">
             <span>1 Year</span>
             <span>7 Years</span>
           </div>
         </div>
 
         {/* EMI Output Breakdown */}
-        <div className={`bg-white/5 border border-white/10 rounded-xl text-center shadow-inner relative overflow-hidden ${isMobile ? 'p-4 space-y-3' : 'p-5 space-y-4'}`}>
+        <div className={`bg-blue-50/80 border border-blue-200 rounded-xl text-center relative overflow-hidden ${isMobile ? 'p-4 space-y-3' : 'p-5 space-y-4'}`}>
           <div className="space-y-0.5">
-            <span className="text-[9px] sm:text-[10px] tracking-widest uppercase text-zinc-400 block font-mono font-bold">Estimated Monthly EMI</span>
-            <span className={`font-serif font-extrabold text-white block ${isMobile ? 'text-2xl' : 'text-3xl'}`}>{formatPrice(monthlyEmi)}</span>
+            <span className="text-[10px] sm:text-xs tracking-wider uppercase text-gray-800 block font-mono font-extrabold">Estimated Monthly EMI</span>
+            <span className={`font-mono font-black text-[#0057D9] block ${isMobile ? 'text-2xl' : 'text-3xl'}`}>{formatPrice(monthlyEmi)}</span>
           </div>
           
-          <div className="grid grid-cols-2 gap-3 pt-3 border-t border-zinc-800 text-[9px] sm:text-[10px] text-zinc-400 font-mono tracking-wider uppercase font-semibold">
+          <div className="grid grid-cols-2 gap-3 pt-3 border-t border-blue-200/80 text-xs font-mono tracking-wider uppercase font-bold">
             <div className="text-left space-y-0.5">
-              <span className="text-zinc-500 text-[8px] sm:text-[9px]">Total Interest</span>
-              <span className="block text-zinc-100 font-sans font-bold text-xs">{formatPrice(totalInterest)}</span>
+              <span className="text-gray-700 text-[10px] block">Total Interest</span>
+              <span className="block text-gray-950 font-sans font-black text-sm">{formatPrice(totalInterest)}</span>
             </div>
             <div className="text-right space-y-0.5">
-              <span className="text-zinc-500 text-[8px] sm:text-[9px]">Total Cost</span>
-              <span className="block text-zinc-100 font-sans font-bold text-xs">{formatPrice(totalPayable)}</span>
+              <span className="text-gray-700 text-[10px] block">Total Cost</span>
+              <span className="block text-gray-950 font-sans font-black text-sm">{formatPrice(totalPayable)}</span>
             </div>
           </div>
         </div>
 
         {/* Legend/Note */}
-        <p className={`${isMobile ? 'text-[7px]' : 'text-[8px]'} text-zinc-500 font-mono uppercase text-center leading-relaxed`}>
+        <p className={`${isMobile ? 'text-[8px]' : 'text-[9px]'} text-gray-600 font-mono uppercase text-center font-medium leading-relaxed`}>
           *Approximate figures based on standard monthly calculations. Actual loan rates and eligibility might vary according to bank parameters.
         </p>
       </div>
@@ -549,14 +551,14 @@ export default function VehicleDetails() {
 
       <div className="container mx-auto max-w-7xl px-4">
         
-        <Link to="/inventory" className="inline-flex items-center text-zinc-500 hover:text-white uppercase tracking-wider text-xs font-bold mb-8 transition-colors font-mono">
-          <ChevronLeft className="w-4 h-4 mr-2" /> Back to Collection
+        <Link to="/inventory" className="inline-flex items-center text-gray-950 hover:text-[#0057D9] uppercase tracking-wider text-xs font-black mb-6 transition-colors font-mono bg-white px-4 py-2 rounded-xl border border-gray-300 shadow-sm">
+          <ChevronLeft className="w-4 h-4 mr-1.5 text-[#0057D9]" /> Back to Collection
         </Link>
 
         {/* DESKTOP LAYOUT (lg:flex, hidden on mobile) */}
-        <div className="hidden lg:flex gap-12 text-zinc-300">
+        <div className="hidden lg:flex gap-8 text-gray-900">
           {/* Left Column - Gallery & Details */}
-          <div className="w-full lg:w-2/3 space-y-10">
+          <div className="w-full lg:w-2/3 space-y-8">
             {renderGallery(false)}
             {renderTechnicalDetails(false)}
           </div>
@@ -569,7 +571,7 @@ export default function VehicleDetails() {
         </div>
 
         {/* MOBILE LAYOUT (flex lg:hidden) */}
-        <div className="flex lg:hidden flex-col gap-6 text-zinc-300">
+        <div className="flex lg:hidden flex-col gap-6 text-gray-900">
           {renderGallery(true)}
           {renderPriceBox(true)}
           {renderTechnicalDetails(true)}
@@ -577,12 +579,12 @@ export default function VehicleDetails() {
         </div>
 
         {/* Certified preowned section */}
-        <div className="mt-6 md:mt-10 bg-zinc-900/55 p-5 md:p-10 border border-zinc-900/80 rounded-2xl relative overflow-hidden group hover:border-white/30 transition-colors duration-500 shadow-sm backdrop-blur-md">
-          <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity duration-1000">
-            <Search className="w-40 h-40 text-white" />
+        <div className="mt-8 bg-white p-6 md:p-10 border border-gray-300 rounded-2xl relative overflow-hidden group hover:border-blue-400 transition-colors duration-300 shadow-lg">
+          <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity duration-500">
+            <Search className="w-40 h-40 text-gray-900" />
           </div>
-          <h2 className="text-xl md:text-2xl font-sans font-bold text-white mb-2 sm:mb-3">Certified Pre-Owned Selection</h2>
-          <p className="text-zinc-400 mb-2 max-w-xl text-xs md:text-sm font-light leading-relaxed">
+          <h2 className="text-xl md:text-2xl font-sans font-black text-gray-950 mb-2 sm:mb-3 uppercase tracking-tight">Certified Pre-Owned Guarantee</h2>
+          <p className="text-gray-800 mb-2 max-w-2xl text-xs md:text-sm font-medium leading-relaxed">
             Every vehicle listed by V C P MOTORS undertakes a specialized physical inspection covering diagnostic checks, accident/flood history, mileage validation, and comprehensive ownership verification.
           </p>
         </div>
@@ -595,27 +597,27 @@ export default function VehicleDetails() {
           {/* Blur Backdrop */}
           <div 
             onClick={() => setShowShareModal(false)}
-            className="absolute inset-0 bg-black/85 backdrop-blur-md transition-opacity" 
+            className="absolute inset-0 bg-slate-900/80 backdrop-blur-md transition-opacity" 
           />
           
           {/* Modal Card */}
-          <div className="bg-zinc-900/90 border border-zinc-800/80 rounded-2xl p-6 sm:p-8 max-w-md w-full relative z-10 shadow-2xl animate-in fade-in zoom-in-95 duration-200 backdrop-blur-xl text-zinc-300">
+          <div className="bg-white border border-gray-300 rounded-2xl p-6 sm:p-8 max-w-md w-full relative z-10 shadow-2xl animate-in fade-in zoom-in-95 duration-200 text-gray-950">
             <button 
               onClick={() => setShowShareModal(false)}
-              className="absolute top-4 right-4 text-zinc-400 hover:text-white p-1.5 rounded-full bg-zinc-950 border border-zinc-805 transition-colors"
+              className="absolute top-4 right-4 text-gray-600 hover:text-gray-950 p-1.5 rounded-full bg-gray-100 hover:bg-gray-200 border border-gray-300 transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
 
             <div className="space-y-6">
               <div className="text-center">
-                <h3 className="text-sm font-serif font-bold text-white tracking-widest uppercase">Share Collection Asset</h3>
-                <p className="text-[10px] text-zinc-400 font-mono tracking-widest uppercase mt-1">Spread the luxury word</p>
+                <h3 className="text-base font-sans font-black text-gray-950 tracking-wider uppercase">Share Listing</h3>
+                <p className="text-xs text-gray-700 font-mono tracking-wider uppercase mt-1 font-bold">V C P MOTORS</p>
               </div>
 
               {/* Asset Preview info Box */}
-              <div className="bg-zinc-950/40 border border-zinc-805 rounded-xl p-4 flex gap-4 items-center">
-                <div className="w-16 h-12 rounded overflow-hidden flex-shrink-0 bg-zinc-950 flex items-center justify-center border border-zinc-800">
+              <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 flex gap-4 items-center">
+                <div className="w-16 h-12 rounded overflow-hidden flex-shrink-0 bg-gray-100 flex items-center justify-center border border-gray-300">
                   {car.images?.[0] ? (
                     <img 
                       src={car.images[0]} 
@@ -627,8 +629,8 @@ export default function VehicleDetails() {
                   )}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <h4 className="text-xs font-serif font-bold text-white uppercase truncate">{car.year} {car.make}</h4>
-                  <p className="text-[9px] text-white font-sans font-bold mt-0.5">{formatPrice(car.price)}</p>
+                  <h4 className="text-xs font-sans font-black text-gray-950 uppercase truncate">{car.year} {car.make} {car.model}</h4>
+                  <p className="text-xs text-[#0057D9] font-mono font-black mt-0.5">{formatPrice(car.price)}</p>
                 </div>
               </div>
 

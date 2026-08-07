@@ -198,8 +198,8 @@ export default function CustomerLayout() {
         {/* Clear overlay without dark tint on home page hero */}
         <div className={`absolute inset-0 transition-all duration-700 pointer-events-none ${
           isHomePage 
-            ? (isScrolled ? 'bg-[#F8FAFC]/55 backdrop-blur-sm' : 'bg-transparent') 
-            : 'bg-[#F8FAFC]/55 backdrop-blur-sm'
+            ? (isScrolled ? 'bg-[#F8FAFC]/75 backdrop-blur-md' : 'bg-transparent') 
+            : 'bg-[#F8FAFC]'
         }`} />
       </div>
 
